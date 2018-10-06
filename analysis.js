@@ -35,7 +35,7 @@ var analysis = {
 		var sad = recent.filter(function checkSad(note) {
 			return RegExp(/sad|down|depress|gloomy/).test(note.body)
 		})
-		return `Thank you. In the last two weeks, you've noted that your child was happy in ${happy.length()} entries and sad in ${sad.length()} entries, out of ${recent.length()} total entries.`
+		return `Thank you. In the last two weeks, you've noted that your child was happy in ${happy.length} entries and sad in ${sad.length} entries, out of ${recent.length} total entries.`
 	},
 	analyze: function (patient, text) {
 		if (text.includes("fever")) {
