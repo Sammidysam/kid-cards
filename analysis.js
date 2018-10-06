@@ -21,10 +21,11 @@ var analysis = {
 		})
 
 		if (started !== undefined)
-			return `Thank you! You started taking ${medication} on ${moment(started.date).fromNow()} with notes: ${started.body}`
+			return `Thank you! You started taking ${medication} ${moment(started.date).fromNow()} with notes: ${started.body}`
 		else
 			return `Thank you! No previous information about ${medication}.`
 	},
+
 	analyze: function (patient, text) {
 		if (text.includes("fever")) {
 			return this.fever(patient);
