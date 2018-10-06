@@ -30,11 +30,11 @@ app.post('/sms', (req, res) => {
 
 	twiml.message("Thank you! I cannot provide any guidance right now, but I will record your report for future analysis.");
 
-	const nextNote = db.doctors[0].patients[0].notes.length;
+	const nextNote = db.doctors[0].patients[0].notes ? db.doctors[0].patients[0].notes.length : 0;
 	firebase.database().ref(`doctors/0/patients/0/notes/${nextNote}`).set({
 		creator: {
-			name: "Sam Craig",
-			phone: "7654644408",
+			name: "Billy Doel",
+			phone: req.body.From,
 			role: "Other"
 		},
 		body: req.body.Body,
