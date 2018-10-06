@@ -7,4 +7,9 @@
     messagingSenderId: "id"
   };
 
+const accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+const authToken = 'your_auth_token';
+const twiliocl = require('twilio')(accountSid, authToken);
+
 export default config;
+export default twiliocl;
