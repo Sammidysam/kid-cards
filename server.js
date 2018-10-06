@@ -7,6 +7,7 @@ const firebase = require("firebase");
 firebase.initializeApp(config);
 
 const twiliocl = require('twilio')(config.accountSid, config.authToken);
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 const app = express();
 
@@ -20,7 +21,7 @@ app.get("/", (req, res) => {
 app.post('/sms', (req, res) => {
 	const twiml = new MessagingResponse();
 
-	twiml.message("Thanks for your message!");
+	twiml.message("I cannot provide any guidance, but I will record your report for future input.");
 
 	res.writeHead(200, { "Content-Type": "text/xml"});
 	res.end(twiml.toString());
