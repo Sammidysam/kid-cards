@@ -16,7 +16,7 @@ var analysis = {
 	medhist: function (patient, medication) {
 		var started = patient.notes.sort(function (a, b) {
 			return new Date(b.date) - new Date(a.date)
-		}).find(function (e, medication) {
+		}).find(function (e) {
 			return e.body.includes(`started taking ${medication}`)
 		})
 
