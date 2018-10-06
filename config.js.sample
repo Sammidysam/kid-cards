@@ -1,8 +1,10 @@
-var config = {
-	apiKey: "APIKEY",
-	authDomain: "authdomain",
-	databaseURL: "url",
-	storageBucket: "appspot"
-};
+  var config = {
+    apiKey: "key",
+    authDomain: "domain",
+    databaseURL: "url",
+    projectId: "id",
+    storageBucket: "storage",
+    messagingSenderId: "id"
+  };
 
-export const config;
+export default config;
