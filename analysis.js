@@ -16,15 +16,16 @@ var analysis = {
 	medhist: function (patient, medication) {
 		var started = patient.notes.sort(function (a, b) {
 			return new Date(b.date) - new Date(a.date)
-		}).find(function (e, medication) {
+		}).find(function (e) {
 			return e.body.includes(`started taking ${medication}`)
 		})
 
 		if (started !== undefined)
-			return `Thank you! You started taking ${medication} on ${moment(started.date).fromNow()} with notes: ${started.body}`
+			return `Thank you! You started taking ${medication} ${moment(started.date).fromNow()} with notes: ${started.body}`
 		else
 			return `Thank you! No previous information about ${medication}.`
 	},
+
 	analyze: function (patient, text) {
 		if (text.includes("fever")) {
 			return this.fever(patient);
