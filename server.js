@@ -14,6 +14,7 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
+import analysis from "./analysis"
 var dbRef = firebase.database().ref('/');
 var db = {};
 
@@ -29,7 +30,7 @@ app.get("/", (req, res) => {
 app.post('/sms', (req, res) => {
 	const twiml = new MessagingResponse();
 
-	twiml.message("Thank you! I cannot provide any guidance right now, but I will record your report for future analysis.");
+	twiml.message(analysis.analyze(db.doctors[0].patients[0], req.body.Body));
 
 	const nextNote = db.doctors[0].patients[0].notes ? db.doctors[0].patients[0].notes.length : 0;
 	firebase.database().ref(`doctors/0/patients/0/notes/${nextNote}`).set({
@@ -41,8 +42,17 @@ app.post('/sms', (req, res) => {
 		body: req.body.Body,
 		date: new Date(Date.now()).toISOString()
 	})
+	db.doctors[0].patients[0].notes[nextNote] = {
+        creator: {
+            name: "Billy Doel",
+            phone: req.body.From,
+            role: "Other"
+        },
+        body: req.body.Body,
+        date: new Date(Date.now()).toISOString()
+    }
 
-	res.writeHead(200, { "Content-Type": "text/xml"});
+		res.writeHead(200, { "Content-Type": "text/xml"});
 	res.end(twiml.toString());
 })
 
