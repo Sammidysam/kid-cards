@@ -22,6 +22,7 @@ dbRef.on('value', function (s) {
 });
 
 app.get("/", (req, res) => {
+	res.header('Access-Control-Allow-Origin', '*');
     res.end(JSON.stringify(db));
 });
 
