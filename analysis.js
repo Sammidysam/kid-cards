@@ -21,11 +21,22 @@ var analysis = {
 		})
 
 		if (started !== undefined)
-			return `Thank you! You started taking ${medication} ${moment(started.date).fromNow()} with notes: ${started.body}`
+			return `Thank you! Your child started taking ${medication} ${moment(started.date).fromNow()} with notes: ${started.body}`
 		else
 			return `Thank you! No previous information about ${medication}.`
 	},
-
+	moodhist: function (patient) {
+		var recent = patient.notes.filter(function checkRecent(note) {
+			return new Date(Date.now()) - new Date(note.date) <= 12096e5
+		})
+		var happy = recent.filter(function checkHappy(note) {
+			return note.body.includes(/happy|cheerful|excited|joy/)
+		})
+		var sad = recent.filter(function checkSad(note) {
+			return note.body.includes(/sad|down|depress|gloomy/)
+		})
+		return `Thank you. In the last two weeks, you've noted that your child was happy in ${happy.length()} entries and sad in ${sad.length()} entries, out of ${recent.length()} total entries.`
+	},
 	analyze: function (patient, text) {
 		if (text.includes("fever")) {
 			return this.fever(patient);
@@ -33,6 +44,8 @@ var analysis = {
 			return this.medhist(patient, "Adderall")
 		} if (text.includes("Focalin")) {
 			return this.medhist(patient, "Focalin")
+		} if (text.includes(/happy|cheerful|excited|joy|sad|down|depress|gloomy/)) {
+			return this.moodhist(patient)
 		} else {
 			return "Thank you! I cannot provide any guidance right now, but I will record your report for future analysis.";
 		}
