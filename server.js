@@ -72,8 +72,9 @@ app.post('/sms', (req, res) => {
 			role: "Other"
 		},
 		body: req.body.Body,
-		date: new Date(Date.now()).toISOString()
-	})
+		date: new Date(Date.now()).toISOString(),
+		objectID: nextNote	
+})
 	db.doctors[currentDoctor].patients[currentPatient].notes[nextNote] = {
         creator: {
             name: "Billy Doel",
