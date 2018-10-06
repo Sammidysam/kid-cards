@@ -1,0 +1,8 @@
+var config = {
+	apiKey: "APIKEY",
+	authDomain: "authdomain",
+	databaseURL: "url",
+	storageBucket: "appspot"
+};
+
+export const config;
