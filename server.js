@@ -20,7 +20,7 @@ var db = {};
 
 const exPatient = {
 	mainphone: "7654644408",
-	name: "Susan Doe"
+	name: "Billy"
 }
 
 dbRef.on('value', function (s) {
