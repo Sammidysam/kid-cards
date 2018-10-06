@@ -30,10 +30,10 @@ var analysis = {
 			return new Date(Date.now()) - new Date(note.date) <= 12096e5
 		})
 		var happy = recent.filter(function checkHappy(note) {
-			return note.body.includes(/happy|cheerful|excited|joy/)
+			return RegExp(/happy|cheerful|excited|joy/).test(note.body)
 		})
 		var sad = recent.filter(function checkSad(note) {
-			return note.body.includes(/sad|down|depress|gloomy/)
+			return RegExp(/sad|down|depress|gloomy/).test(note.body)
 		})
 		return `Thank you. In the last two weeks, you've noted that your child was happy in ${happy.length()} entries and sad in ${sad.length()} entries, out of ${recent.length()} total entries.`
 	},
@@ -44,7 +44,7 @@ var analysis = {
 			return this.medhist(patient, "Adderall")
 		} if (text.includes("Focalin")) {
 			return this.medhist(patient, "Focalin")
-		} if (text.includes(/happy|cheerful|excited|joy|sad|down|depress|gloomy/)) {
+		} if (RegExp(/happy|cheerful|excited|joy|sad|down|depress|gloomy/).test(text)) {
 			return this.moodhist(patient)
 		} else {
 			return "Thank you! I cannot provide any guidance right now, but I will record your report for future analysis.";
